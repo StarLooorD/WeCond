@@ -3,21 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>WeCon Weather</title>
+    <link rel="shortcut icon" href="../static/images/wecond-icon.svg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link href="../static/base.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/base.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <h1>WeCond is</h1>
-            <h2>fast and reliable weather forecast</h2>
-            <h2>for you to be confident</h2>
-        </div>
-        <div class="col">
-            <div class="card shadow">
-                <p>here should be input for city (location)</p>
-                <p>here should be weather forecast for chosen city</p>
+    <div class="welcome">
+        <div class="row">
+            <div class="col">
+                <div class="info-text">
+                    <p class="wecond-name"><b>WeCond</b> is</p>
+                    <h2>fast and reliable weather forecast</h2>
+                    <h2>for your confidence</h2>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card shadow main-card">
+                    <p class="form-city-label"><b>Choose your city:</b></p>
+                    <div class="city-input">
+                        <form action="{{ url_for('index') }}" method="post">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name='city' placeholder="City" aria-label="City" aria-describedby="button-addon2">
+                                <button class="btn btn-outline-primary" type="submit" id="button-addon2">Select</button>
+                            </div>
+                            <div class="radio-buttons">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="measure" id="inlineRadio1" value="C" checked>
+                                    <label class="form-check-label" for="inlineRadio1">°C</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="measure" id="inlineRadio2" value="F">
+                                    <label class="form-check-label" for="inlineRadio2">°F</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card shadow results-card">
+                        <div class="row">
+                            <div class="col-8">
+                                <p><b>City:</b> {{ weather.city }} </p>
+                                <p><b>Temperature:</b> {{ weather.temperature }} °{{ weather.measure }}</p>
+                                <p><b>Description:</b> {{ weather.description }}</p>
+                                <p><b>Humidity:</b> {{ weather.humidity }} %</p>
+                                <p><b>Wind speed:</b> {{ weather.wind_speed }} m/s</p>
+                            </div>
+                            <div class="col weather-image">
+                                <image src="http://openweathermap.org/img/w/{{ weather.icon }}.png" alt="image" width="100" height="100"></image>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
